@@ -1,0 +1,10 @@
+C:\Users\shail\Documents\dotnet\BookingSystemApi\bin\Debug\netcoreapp2.0\BookingSystemApi.deps.json
+C:\Users\shail\Documents\dotnet\BookingSystemApi\bin\Debug\netcoreapp2.0\BookingSystemApi.runtimeconfig.json
+C:\Users\shail\Documents\dotnet\BookingSystemApi\bin\Debug\netcoreapp2.0\BookingSystemApi.runtimeconfig.dev.json
+C:\Users\shail\Documents\dotnet\BookingSystemApi\bin\Debug\netcoreapp2.0\BookingSystemApi.dll
+C:\Users\shail\Documents\dotnet\BookingSystemApi\bin\Debug\netcoreapp2.0\BookingSystemApi.pdb
+C:\Users\shail\Documents\dotnet\BookingSystemApi\obj\Debug\netcoreapp2.0\BookingSystemApi.csproj.CoreCompileInputs.cache
+C:\Users\shail\Documents\dotnet\BookingSystemApi\obj\Debug\netcoreapp2.0\BookingSystemApi.AssemblyInfoInputs.cache
+C:\Users\shail\Documents\dotnet\BookingSystemApi\obj\Debug\netcoreapp2.0\BookingSystemApi.AssemblyInfo.cs
+C:\Users\shail\Documents\dotnet\BookingSystemApi\obj\Debug\netcoreapp2.0\BookingSystemApi.dll
+C:\Users\shail\Documents\dotnet\BookingSystemApi\obj\Debug\netcoreapp2.0\BookingSystemApi.pdb
