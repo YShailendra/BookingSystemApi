@@ -1,7 +1,8 @@
 
+using System;
 using BookingSystemApi.Models;
 using Microsoft.EntityFrameworkCore;
- 
+
 namespace BookingSystemApi.Context
 {
     public class BookingDbContext : DbContext
@@ -11,5 +12,10 @@ namespace BookingSystemApi.Context
         public BookingDbContext(){ }
         public DbSet<BookingModel> Booking { get; set; }
         public DbSet<UserModel> User { get; set; }
+
+        internal object AsEnumerable()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
