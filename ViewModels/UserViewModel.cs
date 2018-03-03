@@ -22,6 +22,7 @@ namespace BookingSystemApi.ViewModels
 
         public UserModel RegisterUser(UserModel data)
         {
+            data.ID= Guid.NewGuid();
             var result =this._repo.Add(data);
             return result;
         }
