@@ -7,11 +7,10 @@ namespace BookingSystemApi.Repository
 {
     public interface IBaseRepository<T> where T : class
     {
-        T Add(T item);
-        IEnumerable<T> GetAll();
-        T Find(string key);
-        T Remove(string Id);
-        T Update(T item);
-        bool CheckValidUserKey(string reqkey);
+        Task<T> Add(T item);
+        Task<IEnumerable<T>> GetAll();
+        Task<T> Find(string key);
+        Task<T> Remove(string Id);
+        Task<T> Update(T item);
     }
 }

@@ -1,5 +1,6 @@
 using BookingSystemApi.Context;
 using BookingSystemApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,45 +21,45 @@ namespace BookingSystemApi.Repository
         {
 
         }
-        public UserModel Add(UserModel item)
+        public async Task<UserModel> Add(UserModel item)
         {
-            this.context.User.Add(item);
-            this.context.SaveChanges();
+            await this.context.User.AddAsync(item);
+            await this.context.SaveChangesAsync();
             return item;
         }
-        public IEnumerable<UserModel> GetAll()
+        public async Task<IEnumerable<UserModel>>GetAll()
         {
-            var data= this.context.User.AsEnumerable();
+            var data= await this.context.User.ToListAsync();
             return data;
         }
-        public UserModel Find(string Id)
+        public async Task<UserModel> Find(string Id)
         {
-            return this.context.User.Find(Guid.Parse(Id));
+            return await this.context.User.Where(w=>w.ID==Guid.Parse(Id)).SingleOrDefaultAsync();
         }
-        public UserModel Remove(string Id)
+        public UserModel GetByEmailOrNumber(string _value)
         {
-            var data = this.context.User.Find(Guid.Parse(Id));
-            if (data != null)
+            return this.context.User.Where(w=>w.Username==_value||w.PhoneNo==_value||w.Email==_value).FirstOrDefault();
+        }
+        public async Task<UserModel> Remove(string Id)
+        {
+            var itemToRemove = await context.User.SingleOrDefaultAsync(r => r.ID == Guid.Parse(Id));
+            if (itemToRemove != null)
             {
-                this.context.User.Remove(data);
-                this.context.SaveChanges();
+                context.User.Remove(itemToRemove);
+                await context.SaveChangesAsync();
             }
 
-            return data;
+            return itemToRemove;
         }
-        public UserModel Update(UserModel item)
+        public async Task<UserModel> Update(UserModel item)
         {
             if(item!=null)
             {
                 this.context.Entry(item).State= Microsoft.EntityFrameworkCore.EntityState.Modified;
-                this.context.SaveChanges();
+                await this.context.SaveChangesAsync();
             }
             return item;
         }
-        public bool CheckValidUserKey(string reqkey)
-        {
-            //TO:DO
-            return false;
-        }
+        
     }
 }

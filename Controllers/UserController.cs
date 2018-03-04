@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookingSystemApi.Models;
+using BookingSystemApi.Repository;
 using BookingSystemApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,22 +14,27 @@ namespace BookingSystemApi.Controllers
     {
         #region Private Varible
         UserViewModel _userViewModel;
+        public IUserRepository Repo { get; set; }
         #endregion
-        UserController(UserViewModel userViewModel)
+        public UserController(IUserRepository userViewModel)
         {
-            this._userViewModel=userViewModel;
+            //this._userViewModel=new UserViewModel(Repo);
+            this.Repo=userViewModel;
         }
-        UserController()
-        {
 
-        }
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var data= await this.Repo.GetAll();
+            return   Ok(data);
         }
-
+        // public async Task<IActionResult> Get()
+        // {
+        //     this._userViewModel= new UserViewModel(Repo);
+        //     var data= await this._userViewModel.GetUsers();
+        //     return   Ok(data);
+        // }
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -38,9 +44,11 @@ namespace BookingSystemApi.Controllers
 
         // POST api/user
         [HttpPost]
-        public IActionResult Post([FromBody]UserModel user)
+        public async Task<IActionResult> Post([FromBody]UserModel user)
         {
-            this._userViewModel.RegisterUser(user);
+            // Console.WriteLine("read");
+            // this._userViewModel.RegisterUser(user);
+            user= await this.Repo.Add(user);
             return Ok(user);
         }
 

@@ -6,6 +6,6 @@ namespace BookingSystemApi.Repository
 {
     public interface IUserRepository:IBaseRepository<UserModel>
     {
-        
+        UserModel GetByEmailOrNumber(string _value);
     }
 }

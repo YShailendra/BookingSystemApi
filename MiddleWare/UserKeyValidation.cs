@@ -26,12 +26,12 @@ namespace ContactsApi.Middleware
             }
             else
             {
-                if(!ContactsRepo.CheckValidUserKey(context.Request.Headers["user-key"]))
-                {
-                    context.Response.StatusCode = 401; //UnAuthorized
-                    await context.Response.WriteAsync("Invalid User Key");
-                    return;
-                }
+                // if(!ContactsRepo.CheckValidUserKey(context.Request.Headers["user-key"]))
+                // {
+                //     context.Response.StatusCode = 401; //UnAuthorized
+                //     await context.Response.WriteAsync("Invalid User Key");
+                //     return;
+                // }
             }
 
             await _next.Invoke(context);

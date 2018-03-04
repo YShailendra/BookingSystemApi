@@ -13,7 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using BookingSystemApi.Helper;
 using BookingSystemApi.Context;
 using Microsoft.EntityFrameworkCore;
-
+using BookingSystemApi.Repository;
+using Newtonsoft.Json.Serialization;
 namespace BookingSystemApi
 {
     public class Startup
@@ -29,6 +30,10 @@ namespace BookingSystemApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BookingDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+             //using Dependency Injection
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IBookingRepository, BookingRepository>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         options.TokenValidationParameters =
@@ -69,7 +74,14 @@ namespace BookingSystemApi
                 options.AddPolicy("Founder",
                     policy => policy.RequireClaim("EmployeeNumber", "1","2","3","4","5"));
             });
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            //allow cors 
+             services.AddCors();
+            // services.AddCors(options =>
+            // {
+            //  options.AddPolicy("AllowSpecificOrigin",
+            //  builder => builder.WithOrigins("http://localhost:4200"));
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,7 +91,9 @@ namespace BookingSystemApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(
+              options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
+            );
             app.UseMvc();
         }
     }

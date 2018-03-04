@@ -15,52 +15,44 @@ namespace BookingSystemApi.Repository
         {
             this.context=context;
         }
-        public BookingRepository()
-        {
-
-        }
-        public BookingModel Add(BookingModel item)
+        public async Task<BookingModel> Add(BookingModel item)
         {
             if(item!=null)
             {
-                this.context.Booking.Add(item);
-                this.context.SaveChanges();
+                await this.context.Booking.AddAsync(item);
+                await this.context.SaveChangesAsync();
             }
             return item;
         }
-        public IEnumerable<BookingModel> GetAll()
+        public async Task<IEnumerable<BookingModel>> GetAll()
         {
-            var data=this.context.Booking.AsEnumerable();
+            var data= await this.context.Booking.ToListAsync();
             return data;
         }
-        public BookingModel Find(string key)
+        public async Task<BookingModel> Find(string key)
         {
-            var data=this.context.Booking.FirstOrDefault(w=>w.BookingNumber==key);
+            var data=await this.context.Booking.Where(w=>w.BookingNumber==key).SingleOrDefaultAsync();
             return data;
         }
-        public BookingModel Remove(string Id)
+        public async Task<BookingModel> Remove(string Id)
         {
             var data =this.Find(Id);
             if(data!=null)
             {
-                this.context.Remove(data);
-                this.context.SaveChanges();
+               this.context.Remove(data);
+               await this.context.SaveChangesAsync();
             }
-            return data;
+            return await data;
         }
-        public BookingModel Update(BookingModel item)
+        public async Task<BookingModel> Update(BookingModel item)
         {
             if(item!=null)
             {
               this.context.Entry(item).State=EntityState.Modified;
-              this.context.SaveChanges();
+              await this.context.SaveChangesAsync();
             }
             return item;
         }
-        public bool CheckValidUserKey(string reqkey)
-        {
-            //TO:DO
-            return false;
-        }
+        
     }
 }
