@@ -15,6 +15,9 @@ using BookingSystemApi.Context;
 using Microsoft.EntityFrameworkCore;
 using BookingSystemApi.Repository;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
+
 namespace BookingSystemApi
 {
     public class Startup
@@ -29,13 +32,33 @@ namespace BookingSystemApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BookingDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-             //using Dependency Injection
+            //allow cors 
+            services.AddCors();
+        //     services.AddCors(options =>
+        //   {
+        //       options.AddPolicy("AllowAllOrigins",
+        //        builder =>
+        //        {
+        //            builder.AllowAnyOrigin().AllowAnyHeader();
+        //        });
+        //   });
+            // services.AddCors(options =>
+            // {
+            //  options.AddPolicy("AllowSpecificOrigin",
+            //  builder => builder.WithOrigins("http://localhost:4200"));
+            // });
+            // services.Configure<MvcOptions>(options =>
+            // {
+            //     options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
+            // });
+            services.AddDbContext<BookingDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //using Dependency Injection
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IBookingRepository, BookingRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options => {
+                    .AddJwtBearer(options =>
+                    {
                         options.TokenValidationParameters =
                              new TokenValidationParameters
                              {
@@ -46,7 +69,7 @@ namespace BookingSystemApi
 
                                  ValidIssuer = "Test.Security.Bearer",
                                  ValidAudience = "Test.Security.Bearer",
-                                 IssuerSigningKey =JwtSecurityKey.Create("Test-secret-key-1234")
+                                 IssuerSigningKey = JwtSecurityKey.Create("Test-secret-key-1234")
                              };
 
                         options.Events = new JwtBearerEvents
@@ -72,16 +95,12 @@ namespace BookingSystemApi
                 options.AddPolicy("Hr",
                     policy => policy.RequireClaim("EmployeeNumber"));
                 options.AddPolicy("Founder",
-                    policy => policy.RequireClaim("EmployeeNumber", "1","2","3","4","5"));
+                    policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
             });
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             //allow cors 
-             services.AddCors();
-            // services.AddCors(options =>
-            // {
-            //  options.AddPolicy("AllowSpecificOrigin",
-            //  builder => builder.WithOrigins("http://localhost:4200"));
-            // });
+            //services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,9 +110,11 @@ namespace BookingSystemApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(
-              options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
-            );
+            app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
             app.UseMvc();
         }
     }
