@@ -28,5 +28,6 @@ namespace BookingSystemApi.Models
         public int? CancelationCharge {get; set;}
         [Required]
         public DateTime JourneyDate { get; set;}
+        public Guid? BusID {get; set;}
     }
 }
