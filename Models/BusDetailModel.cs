@@ -13,10 +13,9 @@ namespace BookingSystemApi.Models
         public string BusNo { get; set;}
         
         [Required]
-        public int  LowerSeats { get; set;}
-
+        public int  SeatingSeats { get; set;}
         [Required]
-        public int  UpperSeats { get; set;}
+        public int  SleeperSeats { get; set;}
         public string BusDescription { get; set;}
     }
 }
