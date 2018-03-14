@@ -11,11 +11,11 @@ namespace BookingSystemApi.Models
     {
         [Required]
         public string BusNo { get; set;}
-        
         [Required]
         public int  SeatingSeats { get; set;}
         [Required]
-        public int  SleeperSeats { get; set;}
+        public int  SleeperSeatsUB { get; set;}
+        public int  SleeperSeatsLB { get; set;}
         public string BusDescription { get; set;}
     }
 }

@@ -11,8 +11,8 @@ using System;
 namespace BookingSystemApi.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20180303043353_columnvalidations")]
-    partial class columnvalidations
+    [Migration("20180314162637_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,8 @@ namespace BookingSystemApi.Migrations
 
                     b.Property<string>("BookingNumber")
                         .IsRequired();
+
+                    b.Property<Guid?>("BusID");
 
                     b.Property<int?>("CancelationCharge");
 
@@ -66,6 +68,33 @@ namespace BookingSystemApi.Migrations
                     b.ToTable("Booking");
                 });
 
+            modelBuilder.Entity("BookingSystemApi.Models.BusDetailModel", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BusDescription");
+
+                    b.Property<string>("BusNo")
+                        .IsRequired();
+
+                    b.Property<Guid>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("SeatingSeats");
+
+                    b.Property<int>("SleeperSeats");
+
+                    b.Property<Guid?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedDate");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BusDetail");
+                });
+
             modelBuilder.Entity("BookingSystemApi.Models.UserModel", b =>
                 {
                     b.Property<Guid>("ID")
@@ -83,6 +112,9 @@ namespace BookingSystemApi.Migrations
                         .IsRequired();
 
                     b.Property<string>("IsAdmin");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("Password")
                         .IsRequired();
