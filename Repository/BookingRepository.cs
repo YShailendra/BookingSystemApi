@@ -17,11 +17,19 @@ namespace BookingSystemApi.Repository
         }
         public async Task<BookingModel> Add(BookingModel item)
         {
-            if(item!=null)
+            try
             {
-                await this.context.Booking.AddAsync(item);
-                await this.context.SaveChangesAsync();
+                if (item != null)
+                {
+                    await this.context.Booking.AddAsync(item);
+                    await this.context.SaveChangesAsync();
+                }
             }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.InnerException);
+            }
+
             return item;
         }
         public async Task<IEnumerable<BookingModel>> GetAll()

@@ -11,9 +11,10 @@ using System;
 namespace BookingSystemApi.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180317191210_updatecolumn")]
+    partial class updatecolumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,8 +60,6 @@ namespace BookingSystemApi.Migrations
                         .IsRequired();
 
                     b.Property<bool>("Status");
-
-                    b.Property<int>("TotalAmount");
 
                     b.Property<Guid?>("UpdatedBy");
 

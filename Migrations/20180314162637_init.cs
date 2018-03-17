@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using BookingSystemApi.Context;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
@@ -75,6 +76,11 @@ namespace BookingSystemApi.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.ID);
                 });
+            // using (var db = new BookingDbContext())
+            // {
+            //     db.BusDetail.AddRange(new BusDetailModel[]{   });
+            //     db.SaveChanges();
+            // }
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

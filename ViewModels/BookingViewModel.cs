@@ -23,6 +23,10 @@ namespace BookingSystemApi.ViewModels
         public string SaveBookingDetails(BookingModel model)
         {
            model.BookingNumber= base.GenerateTicketNumber();
+           Console.WriteLine(model.BookingNumber);
+           model.CreatedDate=DateTime.Now;
+           model.ID=Guid.NewGuid();
+           model.BusID=Guid.NewGuid();
            var data = _bookingRepo.Add(model);
            if(data.IsCompletedSuccessfully)
            {

@@ -19,10 +19,6 @@ namespace BookingSystemApi.Controllers
         {
             this._bookingRepo=iUserRepository;
         }
-        public BookingController()
-        {
-            
-        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -41,8 +37,12 @@ namespace BookingSystemApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]BookingModel value)
         {
-            var vm=new BookingViewModel(_bookingRepo);
+            Console.WriteLine("data"+value.BookedSeats);
+            try
+            {
+             var vm=new BookingViewModel(_bookingRepo);
              var result= vm.SaveBookingDetails(value);
+             
             if(result=="success")
             {
                 return Ok(result);    
@@ -50,7 +50,15 @@ namespace BookingSystemApi.Controllers
             else
             {
                 return Ok(result);
+            }    
             }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.InnerException);
+                
+                return BadRequest();
+            }
+            
             
         }
 

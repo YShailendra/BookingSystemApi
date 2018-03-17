@@ -18,7 +18,6 @@ namespace BookingSystemApi.Models
         [Required]
         [MinLength(10)]
         public string PhoneNo {get; set;}
-
         [Required]
         public string Name { get; set;}
         public string IsAdmin {get; set;}

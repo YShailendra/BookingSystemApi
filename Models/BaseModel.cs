@@ -11,7 +11,7 @@ namespace BookingSystemApi.Models
         public Guid ID { get; set;}
         public DateTime CreatedDate {get; set;}
         public DateTime? UpdatedDate {get; set;}
-        public Guid CreatedBy {get; set;}
+        public Guid? CreatedBy {get; set;}
         public Guid? UpdatedBy {get; set;}
     }
 }
