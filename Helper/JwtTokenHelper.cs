@@ -11,7 +11,6 @@ namespace BookingSystemApi.Helper
 {
   public class JwtTokenBuilder
   {
-        public static JwtTokenBuilder Instance= new JwtTokenBuilder(); 
         private SecurityKey securityKey = null;
         private string subject = "";
         private string issuer = "";
