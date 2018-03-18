@@ -4,11 +4,8 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApi.Repository
 {
-    public interface IBookingRepository:IBaseRepository<BookingModel>
+    public interface IBusRepository:IBaseRepository<BusDetailModel>
     {
         
-        List<string> GetBookedTicketDetails(BookingModel item);
-        
     }
-    
 }

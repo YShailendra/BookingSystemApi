@@ -34,7 +34,7 @@ namespace BookingSystemApi
         {
             //allow cors 
             services.AddCors();
-        //     services.AddCors(options =>
+        //    services.AddCors(options =>
         //   {
         //       options.AddPolicy("AllowAllOrigins",
         //        builder =>
@@ -55,7 +55,7 @@ namespace BookingSystemApi
             //using Dependency Injection
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IBookingRepository, BookingRepository>();
-
+            services.AddSingleton<IBusRepository, BusRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -90,9 +90,9 @@ namespace BookingSystemApi
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Employee",
+                options.AddPolicy("Admin",
                     policy => policy.RequireClaim("EmployeeNumber"));
-                options.AddPolicy("Hr",
+                options.AddPolicy("Agent",
                     policy => policy.RequireClaim("EmployeeNumber"));
                 options.AddPolicy("Founder",
                     policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));

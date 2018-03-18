@@ -1,6 +1,7 @@
 using BookingSystemApi.Context;
 using BookingSystemApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,13 @@ namespace BookingSystemApi.Repository
               await this.context.SaveChangesAsync();
             }
             return item;
+        }
+        public List<string> GetBookedTicketDetails(BookingModel item)
+        {
+            //var data = this.context.Booking.Where(w=>w.JourneyDate==item.JourneyDate && w.BusID==item.BusID).AsQueryable().Select(s=>s.BookedSeats).ToList();
+             var data = this.context.Booking.AsQueryable().Select(s=>(s.BookedSeats)).ToList();
+            // JsonConvert.DeserializeObject<List<Receiver>>(responseString)
+            return data;
         }
         
     }
