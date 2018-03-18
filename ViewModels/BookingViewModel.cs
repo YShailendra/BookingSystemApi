@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookingSystemApi.Models;
 using BookingSystemApi.Repository;
+using Newtonsoft.Json;
 
 namespace BookingSystemApi.ViewModels
 {
@@ -20,7 +21,7 @@ namespace BookingSystemApi.ViewModels
         {
             
         }
-        public string SaveBookingDetails(BookingModel model)
+        public ClientMessage<BookingModel> SaveBookingDetails(BookingModel model)
         {
            model.BookingNumber= base.GenerateTicketNumber();
            Console.WriteLine(model.BookingNumber);
@@ -28,14 +29,26 @@ namespace BookingSystemApi.ViewModels
            model.ID=Guid.NewGuid();
            model.BusID=Guid.NewGuid();
            var data = _bookingRepo.Add(model);
+           var _clientMessage= new ClientMessage<BookingModel>();
+           _clientMessage.ClientData=model;
            if(data.IsCompletedSuccessfully)
            {
-               return "success";
+               _clientMessage.HasError=true;
            }
-           else
+           
+           return _clientMessage;
+        }
+        public List<SeatDetails> GetBookedSeats(BookingModel model)
+        {
+           
+           var data = _bookingRepo.GetBookedTicketDetails(model);
+           var result= new List<SeatDetails>();
+           foreach (var item in data)
            {
-               return "Error";
-           }
+              result.AddRange(JsonConvert.DeserializeObject<List<SeatDetails>>(item));
+           }  
+           return result;
+           
         }
         #region  Private Methods
         

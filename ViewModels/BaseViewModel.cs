@@ -24,4 +24,11 @@ namespace BookingSystemApi.ViewModels
         }
         #endregion
     }
+    public class ClientMessage<T> where T:class
+    {
+        public bool HasError { get; set; }
+        public string Message { get; set; }
+
+        public T ClientData { get; set;}
+    }
 }
