@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingSystemApi.Models;
+using BookingSystemApi.Repository;
 using BookingSystemApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +13,11 @@ namespace BookingSystemApi.Controllers
     public class BusContoller : Controller
     {
         #region Private Property
-        private BookingViewModel _bookingViewModel;
+        private IBusRepository _busRepo;
         #endregion
-        public BusContoller(BookingViewModel bookingViewModel)
+        public BusContoller(IBusRepository busRepo)
         {
-            this._bookingViewModel=bookingViewModel;
+            this._busRepo=busRepo;
         }
         public BusContoller()
         {
@@ -23,9 +25,10 @@ namespace BookingSystemApi.Controllers
         }
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<BusDetailModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            var vm = new BusViewModel(this._busRepo);
+            return vm.GetBusDetails();
         }
 
         // GET api/values/5

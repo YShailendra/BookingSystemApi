@@ -36,6 +36,11 @@ namespace BookingSystemApi.ViewModels
                return "Error";
            }
         }
+        public  IEnumerable<BusDetailModel> GetBusDetails()
+        {
+            var data= this._busRepo.GetAll();
+            return data.Result;
+        }
         #region  Private Methods
         
         #endregion
