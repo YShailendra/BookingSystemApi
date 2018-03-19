@@ -36,10 +36,10 @@ namespace BookingSystemApi.ViewModels
                return "Error";
            }
         }
-        public  IEnumerable<BusDetailModel> GetBusDetails()
+        public async Task<IEnumerable<BusDetailModel>> GetBusDetails()
         {
             var data= this._busRepo.GetAll();
-            return data.Result;
+            return await data;
         }
         #region  Private Methods
         
