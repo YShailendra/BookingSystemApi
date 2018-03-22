@@ -10,25 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookingSystemApi.Controllers
 {
     [Route("api/[controller]")]
-    public class BusContoller : Controller
+    public class BusController : Controller
     {
         #region Private Property
         private IBusRepository _busRepo;
         #endregion
-        public BusContoller(IBusRepository busRepo)
+        public BusController(IBusRepository busRepo)
         {
             this._busRepo=busRepo;
         }
-        public BusContoller()
-        {
-            
-        }
+        
         // GET api/values
         [HttpGet]
-        public IEnumerable<BusDetailModel> Get()
+        public  IActionResult Get(string source="",string destination="")
         {
             var vm = new BusViewModel(this._busRepo);
-            return vm.GetBusDetails();
+            return  Ok(vm.GetBusDetails(source,destination).Result);
         }
 
         // GET api/values/5

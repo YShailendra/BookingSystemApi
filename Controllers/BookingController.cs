@@ -25,7 +25,7 @@ namespace BookingSystemApi.Controllers
         {
               var vm=new BookingViewModel(_bookingRepo);
              var result= vm.GetBookedSeats(model);
-             return Ok(result);
+             return Ok(result.Result);
             //return Ok();
         }
 

@@ -13,9 +13,10 @@ namespace BookingSystemApi.Context
         public DbSet<BookingModel> Booking { get; set; }
         public DbSet<UserModel> User { get; set; }
         public DbSet<BusDetailModel> BusDetail { get; set; }
-        internal object AsEnumerable()
-        {
-            throw new NotImplementedException();
-        }
+        public DbSet<RouteModel> Route { get; set; }
+        public DbSet<StationModel> Station { get; set; }
+        public DbSet<RouteStationModel> RouteStation { get; set; }
+        public DbSet<BusRouteModel> BusRoute{ get; set; }
+        
     }
 }

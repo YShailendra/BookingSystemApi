@@ -38,10 +38,10 @@ namespace BookingSystemApi.ViewModels
            
            return _clientMessage;
         }
-        public List<SeatDetails> GetBookedSeats(BookingModel model)
+        public async Task<List<SeatDetails>> GetBookedSeats(BookingModel model)
         {
            
-           var data = _bookingRepo.GetBookedTicketDetails(model);
+           var data = await _bookingRepo.GetBookedTicketDetails(model);
            var result= new List<SeatDetails>();
            foreach (var item in data)
            {
