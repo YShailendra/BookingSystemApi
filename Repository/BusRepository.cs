@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApi.Repository
 {
-    public class BusRepository:BaseRepository<BusDetailModel>,IBusRepository
+    public class BusRepository:IBusRepository
     {
         private BookingDbContext context;
 
