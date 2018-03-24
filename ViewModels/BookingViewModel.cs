@@ -27,7 +27,7 @@ namespace BookingSystemApi.ViewModels
            Console.WriteLine(model.BookingNumber);
            model.CreatedDate=DateTime.Now;
            model.ID=Guid.NewGuid();
-           model.BusID=Guid.NewGuid();
+           //model.BusID=Guid.NewGuid();
            var data = _bookingRepo.Add(model);
            var _clientMessage= new ClientMessage<BookingModel>();
            _clientMessage.ClientData=model;

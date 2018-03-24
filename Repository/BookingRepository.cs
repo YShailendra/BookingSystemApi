@@ -64,9 +64,9 @@ namespace BookingSystemApi.Repository
         }
         public async Task<List<string>> GetBookedTicketDetails(BookingModel item)
         {
-            //var data = this.context.Booking.Where(w=>w.JourneyDate==item.JourneyDate && w.BusID==item.BusID).AsQueryable().Select(s=>s.BookedSeats).ToList();
+            var data = await this.context.Booking.Where(w=>w.JourneyDate.Date==item.JourneyDate.Date && w.BusID==item.BusID).AsQueryable().Select(s=>s.BookedSeats).ToListAsync();
             
-            return await this.context.Booking.AsQueryable().Select(s=>(s.BookedSeats)).ToListAsync();;
+            return data;
         }
         
     }
