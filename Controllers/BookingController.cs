@@ -29,10 +29,12 @@ namespace BookingSystemApi.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        public IActionResult Get(string bookingnumber,string email)
         {
-            return "value";
+             var vm=new BookingViewModel(_bookingRepo);
+             var result= vm.GetBookingDetails(bookingnumber,email);
+             return Ok(result);
         }
 
         // POST api/values

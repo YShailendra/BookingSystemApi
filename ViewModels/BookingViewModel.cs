@@ -50,6 +50,20 @@ namespace BookingSystemApi.ViewModels
            return result;
            
         }
+        public  ClientMessage<BookingModel> GetBookingDetails(string bookingnumber,string email)
+        {
+           
+           //model.BusID=Guid.NewGuid();
+           var data = _bookingRepo.Find(bookingnumber);
+           var _clientMessage= new ClientMessage<BookingModel>();
+           _clientMessage.ClientData=data.Result;
+           if(data.IsCompletedSuccessfully)
+           {
+               _clientMessage.HasError=true;
+           }
+           
+           return   _clientMessage;
+        }
         #region  Private Methods
         
         #endregion
