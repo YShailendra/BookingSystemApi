@@ -17,6 +17,10 @@ namespace BookingSystemApi.ViewModels
         {
             this._repo=repo;
         }
+        public UserViewModel()
+        {
+
+        }
         public async Task<UserModel> RegisterUser(UserModel data)
         {
             data.ID= Guid.NewGuid();

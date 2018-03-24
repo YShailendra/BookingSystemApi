@@ -2,39 +2,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingSystemApi.Models;
+using BookingSystemApi.Repository;
 using BookingSystemApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSystemApi.Controllers
 {
     [Route("api/[controller]")]
-    public class BusContoller : Controller
+    public class BusController : Controller
     {
         #region Private Property
-        private BookingViewModel _bookingViewModel;
+        private IBusRepository _busRepo;
         #endregion
-        public BusContoller(BookingViewModel bookingViewModel)
+        public BusController(IBusRepository busRepo)
         {
-            this._bookingViewModel=bookingViewModel;
+            this._busRepo=busRepo;
         }
-        public BusContoller()
-        {
-            
-        }
+        
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public  IActionResult Get(string source="",string destination="")
         {
-            return new string[] { "value1", "value2" };
+            var vm = new BusViewModel(this._busRepo);
+            return  Ok(vm.GetBusDetails(source,destination).Result);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/Bus/GetStation
+        [HttpGet("GetStation")]
+        public  IActionResult GetStation(string name="")
         {
-            return "value";
+            var vm = new BusViewModel(this._busRepo);
+            return  Ok(vm.GetStation(name).Result);
+        }
+                // GET api/Bus/GetRoute
+        [HttpGet("GetRoute")]
+        public  IActionResult GetRoute(string name="")
+        {
+            var vm = new BusViewModel(this._busRepo);
+            return  Ok(vm.GetRoute(name).Result);
         }
 
+        [HttpGet("GetBusByRouteId")]
+        public  IActionResult GetBusByRouteId(string routeid="")
+        {
+            var vm = new BusViewModel(this._busRepo);
+            return  Ok(vm.GetBusDetails(routeid).Result);
+        
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)

@@ -7,7 +7,7 @@ namespace BookingSystemApi.Repository
     public interface IBookingRepository:IBaseRepository<BookingModel>
     {
         
-        List<string> GetBookedTicketDetails(BookingModel item);
+        Task<List<string>> GetBookedTicketDetails(BookingModel item);
         
     }
     

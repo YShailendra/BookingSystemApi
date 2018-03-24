@@ -62,11 +62,10 @@ namespace BookingSystemApi.Repository
             }
             return item;
         }
-        public List<string> GetBookedTicketDetails(BookingModel item)
+        public async Task<List<string>> GetBookedTicketDetails(BookingModel item)
         {
-            //var data = this.context.Booking.Where(w=>w.JourneyDate==item.JourneyDate && w.BusID==item.BusID).AsQueryable().Select(s=>s.BookedSeats).ToList();
-             var data = this.context.Booking.AsQueryable().Select(s=>(s.BookedSeats)).ToList();
-            // JsonConvert.DeserializeObject<List<Receiver>>(responseString)
+            var data = await this.context.Booking.Where(w=>w.JourneyDate.Date==item.JourneyDate.Date && w.BusID==item.BusID).AsQueryable().Select(s=>s.BookedSeats).ToListAsync();
+            
             return data;
         }
         

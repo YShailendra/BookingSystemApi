@@ -36,6 +36,29 @@ namespace BookingSystemApi.ViewModels
                return "Error";
            }
         }
+        public async Task<IEnumerable<BusDetailModel>> GetBusDetails(string source,string desination)
+        {
+            var data= await this._busRepo.GetBusByRoute(source,desination);
+            return data;
+        }
+
+        public async Task<IEnumerable<StationModel>> GetStation(string name="")
+        {
+            var data= await this._busRepo.GetStation(name);
+            return data;
+        }
+
+        public async Task<IEnumerable<RouteModel>> GetRoute(string name="")
+        {
+            var data= await this._busRepo.GetRoute(name);
+            return data;
+        }
+
+        public async Task<IEnumerable<BusDetailModel>> GetBusByRouteId(string routeid)
+        {
+            var data= await this._busRepo.GetBusByRouteId(routeid);
+            return data;
+        }
         #region  Private Methods
         
         #endregion

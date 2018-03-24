@@ -27,7 +27,7 @@ namespace BookingSystemApi.ViewModels
            Console.WriteLine(model.BookingNumber);
            model.CreatedDate=DateTime.Now;
            model.ID=Guid.NewGuid();
-           model.BusID=Guid.NewGuid();
+           //model.BusID=Guid.NewGuid();
            var data = _bookingRepo.Add(model);
            var _clientMessage= new ClientMessage<BookingModel>();
            _clientMessage.ClientData=model;
@@ -38,10 +38,10 @@ namespace BookingSystemApi.ViewModels
            
            return _clientMessage;
         }
-        public List<SeatDetails> GetBookedSeats(BookingModel model)
+        public async Task<List<SeatDetails>> GetBookedSeats(BookingModel model)
         {
            
-           var data = _bookingRepo.GetBookedTicketDetails(model);
+           var data = await _bookingRepo.GetBookedTicketDetails(model);
            var result= new List<SeatDetails>();
            foreach (var item in data)
            {
