@@ -38,7 +38,7 @@ namespace BookingSystemApi.ViewModels
         }
         public async Task<IEnumerable<BusDetailModel>> GetBusDetails(string source,string desination)
         {
-            var data= await this._busRepo.GetAll();
+            var data= await this._busRepo.GetBusByRoute(source,desination);
             return data;
         }
         #region  Private Methods
