@@ -12,14 +12,14 @@ namespace BookingSystemApi.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        #region Private Varible
+        #region Private Variable
         
-        public IUserRepository Repo { get; set; }
+        public IUserRepository Repo;
         #endregion
-        public UserController(IUserRepository userViewModel)
+        public UserController(IUserRepository service)
         {
         
-            this.Repo=userViewModel;
+            this.Repo=service;
         }
 
         public async Task<IActionResult> Get()
@@ -39,8 +39,9 @@ namespace BookingSystemApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]UserModel user)
         {
+            Console.WriteLine(user.Email);
             // Console.WriteLine("read");
-            var vm = new UserViewModel(Repo);
+            var vm = new UserViewModel(this.Repo);
             user= await vm.RegisterUser(user);
             return Ok(user);
         }

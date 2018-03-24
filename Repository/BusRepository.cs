@@ -79,5 +79,14 @@ namespace BookingSystemApi.Repository
 
             return await this.context.Route.AsQueryable().ToListAsync();;
         }
+        public async Task<List<BusDetailModel>> GetBusByRouteId(string routeid)
+        {
+            var data=this.context.BusRoute.Join(this.context.BusDetail,br=>br.BusID,bs=>bs.ID,(br,bs)=>new { br,bs}).Select(s=> new BusDetailModel{
+            BusDescription=s.bs.BusDescription,
+            BusNo=s.bs.BusNo,
+            ID=s.bs.ID
+            }).ToListAsync();
+            return await data;
+        }
     }
 }

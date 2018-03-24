@@ -53,6 +53,12 @@ namespace BookingSystemApi.ViewModels
             var data= await this._busRepo.GetRoute(name);
             return data;
         }
+
+        public async Task<IEnumerable<BusDetailModel>> GetBusByRouteId(string routeid)
+        {
+            var data= await this._busRepo.GetBusByRouteId(routeid);
+            return data;
+        }
         #region  Private Methods
         
         #endregion

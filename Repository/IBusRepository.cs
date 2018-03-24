@@ -12,5 +12,7 @@ namespace BookingSystemApi.Repository
 
         Task<List<StationModel>> GetStation(string name="");
 
+        Task<List<BusDetailModel>> GetBusByRouteId(string routeid);
+
     }
 }
