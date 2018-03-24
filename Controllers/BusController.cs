@@ -47,8 +47,8 @@ namespace BookingSystemApi.Controllers
         public  IActionResult GetBusByRouteId(string routeid="")
         {
             var vm = new BusViewModel(this._busRepo);
-            return  Ok(vm.GetBusDetails(routeid).Result);
-        
+            return  Ok(vm.GetBusByRouteId(routeid).Result);
+        }
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
