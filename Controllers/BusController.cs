@@ -28,13 +28,20 @@ namespace BookingSystemApi.Controllers
             return  Ok(vm.GetBusDetails(source,destination).Result);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/Bus/GetStation
+        [HttpGet("GetStation")]
+        public  IActionResult GetStation(string name="")
         {
-            return "value";
+            var vm = new BusViewModel(this._busRepo);
+            return  Ok(vm.GetStation(name).Result);
         }
-
+                // GET api/Bus/GetRoute
+        [HttpGet("GetRoute")]
+        public  IActionResult GetRoute(string name="")
+        {
+            var vm = new BusViewModel(this._busRepo);
+            return  Ok(vm.GetRoute(name).Result);
+        }
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)

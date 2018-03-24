@@ -13,28 +13,21 @@ namespace BookingSystemApi.Controllers
     public class UserController : Controller
     {
         #region Private Varible
-        UserViewModel _userViewModel;
+        
         public IUserRepository Repo { get; set; }
         #endregion
         public UserController(IUserRepository userViewModel)
         {
-            //this._userViewModel=new UserViewModel(Repo);
+        
             this.Repo=userViewModel;
         }
 
-        // GET api/values
-        [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var data= await this.Repo.GetAll();
+            var vm = new UserViewModel(Repo);
+            var data= await vm.GetUsers();
             return   Ok(data);
         }
-        // public async Task<IActionResult> Get()
-        // {
-        //     this._userViewModel= new UserViewModel(Repo);
-        //     var data= await this._userViewModel.GetUsers();
-        //     return   Ok(data);
-        // }
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -47,8 +40,8 @@ namespace BookingSystemApi.Controllers
         public async Task<IActionResult> Post([FromBody]UserModel user)
         {
             // Console.WriteLine("read");
-            // this._userViewModel.RegisterUser(user);
-            user= await this.Repo.Add(user);
+            var vm = new UserViewModel(Repo);
+            user= await vm.RegisterUser(user);
             return Ok(user);
         }
 

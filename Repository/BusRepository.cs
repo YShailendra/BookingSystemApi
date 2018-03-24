@@ -69,6 +69,15 @@ namespace BookingSystemApi.Repository
             }
             return item;
         }
-        
+        public async Task<List<StationModel>> GetStation(string name="")
+        {
+            return await this.context.Station.AsQueryable().ToListAsync();
+        }
+        //
+        public async Task<List<RouteModel>> GetRoute(string name="")
+        {
+
+            return await this.context.Route.AsQueryable().ToListAsync();;
+        }
     }
 }

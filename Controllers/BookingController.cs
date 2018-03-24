@@ -26,7 +26,6 @@ namespace BookingSystemApi.Controllers
               var vm=new BookingViewModel(_bookingRepo);
              var result= vm.GetBookedSeats(model);
              return Ok(result.Result);
-            //return Ok();
         }
 
         // GET api/values/5
@@ -60,10 +59,6 @@ namespace BookingSystemApi.Controllers
         {
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
