@@ -81,7 +81,7 @@ namespace BookingSystemApi.Repository
         }
         public async Task<List<BusDetailModel>> GetBusByRouteId(string routeid)
         {
-            var data=this.context.BusRoute.Join(this.context.BusDetail,br=>br.BusID,bs=>bs.ID,(br,bs)=>new { br,bs}).Select(s=> new BusDetailModel{
+            var data=this.context.BusRoute.Where(w=>w.RouteID==int.Parse(routeid)).Join(this.context.BusDetail,br=>br.BusID,bs=>bs.ID,(br,bs)=>new { br,bs}).Select(s=> new BusDetailModel{
             BusDescription=s.bs.BusDescription,
             BusNo=s.bs.BusNo,
             ID=s.bs.ID
