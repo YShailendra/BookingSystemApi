@@ -24,7 +24,7 @@ namespace BookingSystemApi.ViewModels
         public async Task<UserModel> RegisterUser(UserModel data)
         {
             data.ID= Guid.NewGuid();
-            AppHelper.Instance.GetHash(data.Password); 
+            data.Password = AppHelper.Instance.GetHash(data.Password); 
             var result =this._repo.Add(data);
             return await result;
         }

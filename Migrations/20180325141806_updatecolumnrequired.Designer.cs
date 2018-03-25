@@ -11,9 +11,10 @@ using System;
 namespace BookingSystemApi.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180325141806_updatecolumnrequired")]
+    partial class updatecolumnrequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,12 +199,6 @@ namespace BookingSystemApi.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("PhoneNo")
-                        .IsUnique();
 
                     b.ToTable("User");
                 });

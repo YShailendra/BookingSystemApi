@@ -28,7 +28,7 @@ namespace BookingSystemApi.Controllers
                 var user = this.userRepo.GetByEmailOrNumber(inputModel.Username);
                 if (user != null)
                 {
-                    if (user.Password == inputModel.Password)
+                    if (user.Password == AppHelper.Instance.GetHash(inputModel.Password))
                     {
                         var token = new JwtTokenBuilder()
                                                         .AddSecurityKey(JwtSecurityKey.Create(user.ID.ToString()))
