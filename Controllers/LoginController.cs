@@ -40,7 +40,12 @@ namespace BookingSystemApi.Controllers
                                                         .AddClaim("IsAdmin", user.IsAdmin.HasValue?user.IsAdmin.Value.ToString():"false")
                                                         .AddExpiry(5)
                                                         .Build();
-                        return Ok(token);
+                        var data = new LoginModel();
+                        data.Token = token.Value;
+                        Console.WriteLine(user.IsAdmin.Value);
+                        data.IsAdmin = user.IsAdmin.HasValue?user.IsAdmin.Value:false;
+
+                        return Ok(data);
                     }
                     else
                     {
