@@ -20,7 +20,7 @@ namespace BookingSystemApi.Models
         public string PhoneNo {get; set;}
         [Required]
         public string Name { get; set;}
-        public string IsAdmin {get; set;}
+        public Boolean? IsAdmin {get; set;}
         public string City {get; set;}
         public string Addr {get; set;}
     }

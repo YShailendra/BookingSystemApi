@@ -36,9 +36,9 @@ namespace BookingSystemApi.Repository
         {
             return await this.context.User.Where(w=>w.ID==Guid.Parse(Id)).SingleOrDefaultAsync();
         }
-        public UserModel GetByEmailOrNumber(string _value)
+        public async Task<UserModel> GetByEmailOrNumber(string _value)
         {
-            return this.context.User.Where(w=>w.Username==_value||w.PhoneNo==_value||w.Email==_value).FirstOrDefault();
+            return await this.context.User.Where(w=>w.Username==_value||w.PhoneNo==_value||w.Email==_value).FirstOrDefaultAsync();
         }
         public async Task<UserModel> Remove(string Id)
         {

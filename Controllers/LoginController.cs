@@ -21,21 +21,23 @@ namespace BookingSystemApi.Controllers
 
         [HttpPost]
         public IActionResult Create([FromBody]LoginModel inputModel)
-        {
+        { 
+            Console.WriteLine(inputModel.Username);
             if (!string.IsNullOrEmpty(inputModel.Username) &&
             !string.IsNullOrEmpty(inputModel.Password))
             {
-                var user = this.userRepo.GetByEmailOrNumber(inputModel.Username);
+                var user = this.userRepo.GetByEmailOrNumber(inputModel.Username).Result;
                 if (user != null)
                 {
                     if (user.Password == AppHelper.Instance.GetHash(inputModel.Password))
                     {
+                        Console.WriteLine(user.Password);
                         var token = new JwtTokenBuilder()
                                                         .AddSecurityKey(JwtSecurityKey.Create(user.ID.ToString()))
                                                         .AddSubject(user.Email)
                                                         .AddIssuer("Security.Bearer")
                                                         .AddAudience("Security.Bearer")
-                                                        .AddClaim("IsAdmin", user.IsAdmin)
+                                                        .AddClaim("IsAdmin", user.IsAdmin.HasValue?user.IsAdmin.Value.ToString():"false")
                                                         .AddExpiry(5)
                                                         .Build();
                         return Ok(token);
