@@ -12609,23 +12609,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Prateek\\.nuget\\packages\\": {},
+    "C:\\Users\\shail\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Prateek\\Desktop\\development\\ticketsystem\\BookingSystemApi\\BookingSystemApi.csproj",
+      "projectUniqueName": "C:\\Users\\shail\\Documents\\dotnet\\BookingSystemApi\\BookingSystemApi.csproj",
       "projectName": "BookingSystemApi",
-      "projectPath": "C:\\Users\\Prateek\\Desktop\\development\\ticketsystem\\BookingSystemApi\\BookingSystemApi.csproj",
-      "packagesPath": "C:\\Users\\Prateek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Prateek\\Desktop\\development\\ticketsystem\\BookingSystemApi\\obj\\",
+      "projectPath": "C:\\Users\\shail\\Documents\\dotnet\\BookingSystemApi\\BookingSystemApi.csproj",
+      "packagesPath": "C:\\Users\\shail\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\shail\\Documents\\dotnet\\BookingSystemApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Prateek\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\shail\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
