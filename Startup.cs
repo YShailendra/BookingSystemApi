@@ -17,6 +17,9 @@ using BookingSystemApi.Repository;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using System.Buffers;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace BookingSystemApi
 {
@@ -97,9 +100,15 @@ namespace BookingSystemApi
                 options.AddPolicy("Founder",
                     policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
             });
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-            //allow cors 
-            //services.AddCors();
+            services.AddMvc(options=>{
+            //this is to remove refrence loop of data model
+            options.OutputFormatters.Clear();
+            options.OutputFormatters.Add(new JsonOutputFormatter(new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            }, ArrayPool<char>.Shared));
+            }).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            
 
         }
 

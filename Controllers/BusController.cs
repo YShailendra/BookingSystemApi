@@ -14,18 +14,21 @@ namespace BookingSystemApi.Controllers
     {
         #region Private Property
         private IBusRepository _busRepo;
+        private IBookingRepository bookingRepository;
         #endregion
-        public BusController(IBusRepository busRepo)
+        public BusController(IBusRepository busRepo,IBookingRepository booking)
         {
             this._busRepo=busRepo;
+            this.bookingRepository=booking;
         }
         
         // GET api/values
-        [HttpGet]
-        public  IActionResult Get(string source="",string destination="")
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]BookingModel data)
         {
             var vm = new BusViewModel(this._busRepo);
-            return  Ok(vm.GetBusDetails(source,destination).Result);
+            var result= await vm.GetBusDetails(data);
+            return  Ok(result);
         }
 
         // GET api/Bus/GetStation
@@ -49,11 +52,7 @@ namespace BookingSystemApi.Controllers
             var vm = new BusViewModel(this._busRepo);
             return  Ok(vm.GetBusByRouteId(routeid).Result);
         }
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        
 
         // PUT api/values/5
         [HttpPut("{id}")]

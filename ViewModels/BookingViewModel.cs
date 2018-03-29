@@ -33,7 +33,7 @@ namespace BookingSystemApi.ViewModels
                 var data = _bookingRepo.Add(model);
 
                 _clientMessage.ClientData = model;
-                //this.SendMailToTicketOwner(model);
+                this.SendMailToTicketOwner(model);
                 if (data.IsCompletedSuccessfully)
                 {
                     _clientMessage.HasError = true;
@@ -52,16 +52,7 @@ namespace BookingSystemApi.ViewModels
         {
 
             var data = await _bookingRepo.GetBookedTicketDetails(model);
-            var result = new List<SeatDetails>();
-            if (data != null && data.Count > 0)
-            {
-                foreach (var item in data)
-                {
-                    result.AddRange(JsonConvert.DeserializeObject<List<SeatDetails>>(item));
-                }
-            }
-
-            return result;
+            return data;
 
         }
         public  ClientMessage<BookingModel> GetBookingDetails(string bookingnumber,string email)
@@ -89,15 +80,8 @@ namespace BookingSystemApi.ViewModels
         private bool ValidateBooking(BookingModel model)
         {
             bool iresult=false;
-            var data = this._bookingRepo.GetBookedTicketDetails(model).Result;
-             var result = new List<SeatDetails>();
-            if (data != null && data.Count > 0)
-            {
-                foreach (var item in data)
-                {
-                    result.AddRange(JsonConvert.DeserializeObject<List<SeatDetails>>(item));
-                }
-            }
+            var result = this._bookingRepo.GetBookedTicketDetails(model).Result;
+             //var result = new List<SeatDetails>();
             var dataExist= model.BookedSeatDetails.Except(result);
             if(dataExist.Count()==model.BookedSeatDetails.Count)
             {

@@ -27,9 +27,6 @@ namespace BookingSystemApi.Migrations
 
                     b.Property<int?>("AmountPaid");
 
-                    b.Property<string>("BookedSeats")
-                        .IsRequired();
-
                     b.Property<string>("BookingNumber")
                         .IsRequired();
 
@@ -152,6 +149,30 @@ namespace BookingSystemApi.Migrations
                     b.ToTable("RouteStation");
                 });
 
+            modelBuilder.Entity("BookingSystemApi.Models.SeatDetails", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Amount");
+
+                    b.Property<Guid?>("BookingID");
+
+                    b.Property<string>("Gender")
+                        .IsRequired();
+
+                    b.Property<string>("SeatId");
+
+                    b.Property<string>("SeatType")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookingID");
+
+                    b.ToTable("SeatDetails");
+                });
+
             modelBuilder.Entity("BookingSystemApi.Models.StationModel", b =>
                 {
                     b.Property<int>("ID")
@@ -232,6 +253,13 @@ namespace BookingSystemApi.Migrations
                         .WithMany()
                         .HasForeignKey("StationID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BookingSystemApi.Models.SeatDetails", b =>
+                {
+                    b.HasOne("BookingSystemApi.Models.BookingModel", "Booking")
+                        .WithMany("BookedSeatDetails")
+                        .HasForeignKey("BookingID");
                 });
 #pragma warning restore 612, 618
         }

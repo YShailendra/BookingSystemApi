@@ -6,7 +6,7 @@ namespace BookingSystemApi.Repository
 {
     public interface IBusRepository:IBaseRepository<BusDetailModel>
     {
-        Task<List<BusDetailModel>> GetBusByRoute(string source, string destination);
+        Task<List<BusDetailModel>> GetBusByRoute(BookingModel model);
 
         Task<List<RouteModel>> GetRoute(string name="");
 

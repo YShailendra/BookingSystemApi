@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace BookingSystemApi.Repository
 {
     public class BusRepository:IBusRepository
@@ -32,15 +32,15 @@ namespace BookingSystemApi.Repository
             var data= await this.context.BusDetail.ToListAsync();
             return data;
         }
-        public async Task<List<BusDetailModel>>GetBusByRoute(string source, string destinaton)
+        public async Task<List<BusDetailModel>>GetBusByRoute(BookingModel model)
         {
-            var data= await this.context.Station.Where(w=>w.StationName==source||w.StationName==destinaton)
+            var data= await this.context.Station.Where(w=>w.StationName==model.Source||w.StationName==model.Destination)
             .Join(this.context.RouteStation,st=>st.ID,rt=>rt.StationID, (st,rt)=>new {st,rt})
             .Join(this.context.BusRoute,sr=>sr.rt.RouteID,br=>br.RouteID,(sr,br)=>new {sr,br}).
              Join(this.context.BusDetail,bsr=>bsr.br.BusID,bus=>bus.ID,(bsr,bus)=>new { bsr,bus }).Select(s=> new BusDetailModel{
              BusDescription=s.bus.BusDescription,
              BusNo=s.bus.BusNo,
-             ID=s.bus.ID
+             ID=s.bus.ID,
             }).ToListAsync();
             return data;
         }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingSystemApi.Models
 {
+    [Table("Booking")]
     public class BookingModel:BaseModel
     {
         [Required]
@@ -23,9 +24,7 @@ namespace BookingSystemApi.Models
         public string PhoneNo {get; set;}
         [Required]
         public string BookingNumber {get; set;}
-        [Required]
-        public string BookedSeats {get; set;}
-
+        
         public int TotalAmount { get; set;}
         public int? AmountPaid {get; set;}
         public int? CancelationCharge {get; set;}
@@ -33,7 +32,6 @@ namespace BookingSystemApi.Models
         public DateTime JourneyDate { get; set;}
         public Guid? BusID {get; set;}
         public Boolean Status {get; set;}
-        [NotMapped]
         public List<SeatDetails> BookedSeatDetails {get; set;}
     }
 }

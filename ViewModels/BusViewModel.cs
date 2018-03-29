@@ -36,9 +36,9 @@ namespace BookingSystemApi.ViewModels
                return "Error";
            }
         }
-        public async Task<IEnumerable<BusDetailModel>> GetBusDetails(string source,string desination)
+        public async Task<IEnumerable<BusDetailModel>> GetBusDetails(BookingModel model)
         {
-            var data= await this._busRepo.GetBusByRoute(source,desination);
+            var data= await this._busRepo.GetBusByRoute(model);
             return data;
         }
 

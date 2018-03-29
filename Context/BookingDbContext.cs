@@ -17,7 +17,7 @@ namespace BookingSystemApi.Context
         public DbSet<StationModel> Station { get; set; }
         public DbSet<RouteStationModel> RouteStation { get; set; }
         public DbSet<BusRouteModel> BusRoute{ get; set; }
-
+        public DbSet<SeatDetails> SeatDetails {get; set;}
         protected override void OnModelCreating(ModelBuilder builder)
         {
         
