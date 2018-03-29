@@ -40,7 +40,12 @@ namespace BookingSystemApi.Repository
         }
         public async Task<BookingModel> Find(string key)
         {
-            var data=await this.context.Booking.Where(w=>w.BookingNumber==key).SingleOrDefaultAsync();
+            var data=await this.context.Booking.Include(i=>i.BookedSeatDetails).Where(w=>w.ID==Guid.Parse(key)).FirstOrDefaultAsync();
+            return data;
+        }
+        public async Task<BookingModel> GetBookedTicketByBookingNumber(string bookingNumber)
+        {
+            var data=await this.context.Booking.Include(i=>i.BookedSeatDetails).Where(w=>w.BookingNumber==bookingNumber).FirstOrDefaultAsync();
             return data;
         }
         public async Task<BookingModel> Remove(string Id)
@@ -64,9 +69,7 @@ namespace BookingSystemApi.Repository
         }
         public async Task<List<SeatDetails>> GetBookedTicketDetails(BookingModel item)
         {
-            Console.WriteLine("BookedSeats");
             var data = await this.context.SeatDetails.Where(w=>w.Booking.JourneyDate.Date==item.JourneyDate.Date && w.Booking.BusID==item.BusID).AsQueryable().ToListAsync();
-            Console.WriteLine("BookedSeats exe");
             return data;
         }
         

@@ -29,11 +29,8 @@ namespace BookingSystemApi.ViewModels
                 model.BookingNumber = base.GenerateTicketNumber();
                 Console.WriteLine(model.BookingNumber);
                 model.CreatedDate = DateTime.Now;
-                model.ID = Guid.NewGuid();
                 var data = _bookingRepo.Add(model);
-
                 _clientMessage.ClientData = model;
-                this.SendMailToTicketOwner(model);
                 if (data.IsCompletedSuccessfully)
                 {
                     _clientMessage.HasError = true;
@@ -44,8 +41,29 @@ namespace BookingSystemApi.ViewModels
                   _clientMessage.HasError = true;
                    _clientMessage.Message = "Seat Already Booked!";
             }
-
-
+            return _clientMessage;
+        }
+        
+        public ClientMessage<BookingModel> CancelAndConfirmBooking(BookingModel model,int bookingSattus)
+        {
+            var _clientMessage = new ClientMessage<BookingModel>();
+            if (model!=null)
+            {
+                
+                model.Status=bookingSattus;
+                var data = _bookingRepo.Update(model);
+                _clientMessage.ClientData = model;
+                //this.SendMailToTicketOwner(model);
+                if (data.IsCompletedSuccessfully)
+                {
+                    _clientMessage.HasError = true;
+                }
+            }
+            else{
+                 _clientMessage.ClientData = model;
+                  _clientMessage.HasError = true;
+                   _clientMessage.Message = "Booking data not found!";
+            }
             return _clientMessage;
         }
         public async Task<List<SeatDetails>> GetBookedSeats(BookingModel model)
@@ -59,7 +77,7 @@ namespace BookingSystemApi.ViewModels
         {
            
            //model.BusID=Guid.NewGuid();
-           var data = _bookingRepo.Find(bookingnumber);
+           var data = _bookingRepo.GetBookedTicketByBookingNumber(bookingnumber);
            var _clientMessage= new ClientMessage<BookingModel>();
            _clientMessage.ClientData=data.Result;
            //EmaiilHelper
@@ -69,6 +87,11 @@ namespace BookingSystemApi.ViewModels
            }
            
            return   _clientMessage;
+        }
+        public async Task<BookingModel> GetBookingById(Guid id)
+        {
+           var data = await _bookingRepo.Find(id.ToString());
+           return data;
         }
         #region  Private Methods
         private void SendMailToTicketOwner(BookingModel model)

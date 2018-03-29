@@ -8,7 +8,7 @@ namespace BookingSystemApi.Repository
     {
         
         Task<List<SeatDetails>> GetBookedTicketDetails(BookingModel item);
-        
+        Task<BookingModel> GetBookedTicketByBookingNumber(string bookingNumber);
     }
     
 }

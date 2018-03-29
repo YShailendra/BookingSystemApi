@@ -57,10 +57,20 @@ namespace BookingSystemApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]BookingModel value)
         {
+             var vm=new BookingViewModel(_bookingRepo);
+             var result= vm.SaveBookingDetails(value);
+             return Ok(result);
         }
 
-       
+        // PUT api/values/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+             var vm=new BookingViewModel(_bookingRepo);
+             var result= await vm.GetBookingById(id);
+             return Ok(result);
+        }
     }
 }
