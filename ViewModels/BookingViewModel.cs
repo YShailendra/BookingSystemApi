@@ -49,11 +49,11 @@ namespace BookingSystemApi.ViewModels
             var _clientMessage = new ClientMessage<BookingModel>();
             if (model!=null)
             {
-                
                 model.Status=bookingSattus;
+                model.UpdatedDate=DateTime.Now;
                 var data = _bookingRepo.Update(model);
                 _clientMessage.ClientData = model;
-                //this.SendMailToTicketOwner(model);
+                
                 if (data.IsCompletedSuccessfully)
                 {
                     _clientMessage.HasError = true;
@@ -73,20 +73,10 @@ namespace BookingSystemApi.ViewModels
             return data;
 
         }
-        public  ClientMessage<BookingModel> GetBookingDetails(string bookingnumber,string email)
+        public  async Task<BookingModel> GetBookingDetails(string bookingnumber,string email)
         {
-           
-           //model.BusID=Guid.NewGuid();
-           var data = _bookingRepo.GetBookedTicketByBookingNumber(bookingnumber);
-           var _clientMessage= new ClientMessage<BookingModel>();
-           _clientMessage.ClientData=data.Result;
-           //EmaiilHelper
-           if(data.IsCompletedSuccessfully)
-           {
-               _clientMessage.HasError=true;
-           }
-           
-           return   _clientMessage;
+           var data = await _bookingRepo.GetBookedTicketByBookingNumber(bookingnumber);
+           return   data;
         }
         public async Task<BookingModel> GetBookingById(Guid id)
         {

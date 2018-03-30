@@ -28,12 +28,12 @@ namespace BookingSystemApi.Controllers
              return Ok(result.Result);
         }
 
-        // GET api/values/5
-        [HttpGet]
-        public IActionResult Get(string bookingnumber,string email)
+        // GET api/Booking/GetBookingByBookingNumber
+        [HttpGet("GetBookingByBookingNumber")]
+        public async Task<IActionResult> Get(string bookingnumber,string email)
         {
              var vm=new BookingViewModel(_bookingRepo);
-             var result= vm.GetBookingDetails(bookingnumber,email);
+             var result=await vm.GetBookingDetails(bookingnumber,email);
              return Ok(result);
         }
 
@@ -60,7 +60,7 @@ namespace BookingSystemApi.Controllers
         public IActionResult Put(int id, [FromBody]BookingModel value)
         {
              var vm=new BookingViewModel(_bookingRepo);
-             var result= vm.SaveBookingDetails(value);
+             var result= vm.CancelAndConfirmBooking(value,2);
              return Ok(result);
         }
 

@@ -43,9 +43,10 @@ namespace BookingSystemApi.Repository
             var data=await this.context.Booking.Include(i=>i.BookedSeatDetails).Where(w=>w.ID==Guid.Parse(key)).FirstOrDefaultAsync();
             return data;
         }
-        public async Task<BookingModel> GetBookedTicketByBookingNumber(string bookingNumber)
+        public async Task<BookingModel> GetBookedTicketByBookingNumber(string bookingnumber)
         {
-            var data=await this.context.Booking.Include(i=>i.BookedSeatDetails).Where(w=>w.BookingNumber==bookingNumber).FirstOrDefaultAsync();
+            Console.WriteLine("booking number ="+bookingnumber);
+            var data=await this.context.Booking.Include(i=>i.BookedSeatDetails).Where(w=>w.BookingNumber==bookingnumber).SingleOrDefaultAsync();
             return data;
         }
         public async Task<BookingModel> Remove(string Id)

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 
 namespace BookingSystemApi.Models
 {
@@ -30,7 +30,7 @@ namespace BookingSystemApi.Models
         public int? CancelationCharge {get; set;}
         [Required]
         public DateTime JourneyDate { get; set;}
-        public Guid? BusID {get; set;}
+        public Guid? BusID {get; set;}  
         public int Status {get; set;}
         public List<SeatDetails> BookedSeatDetails {get; set;}
     }
