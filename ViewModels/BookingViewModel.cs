@@ -83,6 +83,11 @@ namespace BookingSystemApi.ViewModels
            var data = await _bookingRepo.Find(id.ToString());
            return data;
         }
+        public async Task<IEnumerable<BookingModel>> GetBookingReport(DateTime? date,Guid? busid,int days=0)
+        {
+           var data = await _bookingRepo.GetAll();
+           return data;
+        }
         #region  Private Methods
         private void SendMailToTicketOwner(BookingModel model)
         {

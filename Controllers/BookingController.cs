@@ -72,5 +72,13 @@ namespace BookingSystemApi.Controllers
              var result= await vm.GetBookingById(id);
              return Ok(result);
         }
+
+        [HttpGet("GetReport")]
+        public async Task<IActionResult> GetReport(DateTime? date=null,Guid? busid=null,int days=0)
+        {
+             var vm=new BookingViewModel(_bookingRepo);
+             var result= await vm.GetBookingReport(date,busid,days);
+             return Ok(result);
+        }
     }
 }
