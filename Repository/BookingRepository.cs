@@ -73,6 +73,20 @@ namespace BookingSystemApi.Repository
             var data = await this.context.SeatDetails.Where(w=>w.Booking.JourneyDate.Date==item.JourneyDate.Date && w.Booking.BusID==item.BusID).AsQueryable().ToListAsync();
             return data;
         }
+        public async Task<IEnumerable<ReportModel>> GetBookingReport(DateTime? date,Guid? busid,int days)
+        {
+             var data= await this.context.Booking.Include(i=>i.BookedSeatDetails).Select(s=> new ReportModel{
+                 Name=s.Name,
+                 Email=s.Email,
+                 PhoneNo=s.PhoneNo,
+                 BookingNumber=s.BookingNumber,
+                 Source=s.Source,
+                 Destination=s.Destination,
+                 Seats= string.Join(",", s.BookedSeatDetails.Select(ss=>ss.SeatId).ToArray()),
+                 JourneyDate=s.JourneyDate.ToLongDateString(),
+             }).ToListAsync();
+            return data;
+        }
         
     }
 }

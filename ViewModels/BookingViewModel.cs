@@ -83,9 +83,9 @@ namespace BookingSystemApi.ViewModels
            var data = await _bookingRepo.Find(id.ToString());
            return data;
         }
-        public async Task<IEnumerable<BookingModel>> GetBookingReport(DateTime? date,Guid? busid,int days=0)
+        public async Task<IEnumerable<ReportModel>> GetBookingReport(DateTime? date,Guid? busid,int days=0)
         {
-           var data = await _bookingRepo.GetAll();
+           var data = await _bookingRepo.GetBookingReport(date,busid,days);
            return data;
         }
         #region  Private Methods
