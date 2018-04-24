@@ -31,7 +31,9 @@ namespace BookingSystemApi.Models
         [Required]
         public DateTime JourneyDate { get; set;}
         public Guid? BusID {get; set;}  
-        public int Status {get; set;}
+        
+        public int Status {get; set;}//0-New,1 Confirm(payment done) ,2 Cancel
+        
         public List<SeatDetails> BookedSeatDetails {get; set;}
     }
 }
