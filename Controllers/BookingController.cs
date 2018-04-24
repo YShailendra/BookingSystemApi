@@ -80,5 +80,14 @@ namespace BookingSystemApi.Controllers
              var result= await vm.GetBookingReport(date,busid,days);
              return Ok(result);
         }
+        [HttpGet("CancelTicket")]
+        public IActionResult Cancel(string bookingnumber,string email)
+        {
+             var vm=new BookingViewModel(_bookingRepo);
+             var value = vm.GetBookingDetails(bookingnumber,email).Result;
+            
+             var result= vm.CancelAndConfirmBooking(value,2);
+             return Ok(result);
+        }
     }
 }

@@ -27,7 +27,6 @@ namespace BookingSystemApi.ViewModels
             if (this.ValidateBooking(model))
             {
                 model.BookingNumber = base.GenerateTicketNumber();
-                Console.WriteLine(model.BookingNumber);
                 model.CreatedDate = DateTime.Now;
                 var data = _bookingRepo.Add(model);
                 _clientMessage.ClientData = model;

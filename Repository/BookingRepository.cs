@@ -75,7 +75,7 @@ namespace BookingSystemApi.Repository
         }
         public async Task<IEnumerable<ReportModel>> GetBookingReport(DateTime? date,Guid? busid,int days)
         {
-             var data= await this.context.Booking.Include(i=>i.BookedSeatDetails).Select(s=> new ReportModel{
+             var data= await this.context.Booking.Where(w=>w.Status<2).Include(i=>i.BookedSeatDetails).Select(s=> new ReportModel{
                  Name=s.Name,
                  Email=s.Email,
                  PhoneNo=s.PhoneNo,
